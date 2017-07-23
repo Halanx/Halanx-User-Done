@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/Users/Nishant/Desktop/Halanx-User-Final-101/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c798a9ed2127ecb824261b9695ad89b0c3c3b440">
+        <dex dex="/Users/Nishant/Desktop/Halanx-User-Final-101/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_d0c37458fc494a6a0f10ec5370682a09638cd380/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Nishant/Desktop/Halanx-User-Final-101/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/Nishant/Desktop/Halanx-User-Final-101/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_3c65b65618af7668c1dfa131b4c20f4cc98c3021/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/Nishant/.android/build-cache/60f99bdd17bfca89f13baa7b9052d8aae10a218e/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.2"
+        sha1="04e85bb19780a1c950b6ab201f3d5d061093150f">
+        <dex dex="/Users/Nishant/Desktop/halanx-user-update/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f12ed46c7f927a7b188d7708fa80e59128077444/classes.dex" />
+    </item>
+
+</items>

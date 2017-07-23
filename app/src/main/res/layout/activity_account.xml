@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#fcfcfc"
+    tools:context="com.halanx.tript.userapp.Activities.AccountActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv_user_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:elevation="5dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#e9e9e9"
+            android:weightSum="1">
+
+            <ImageView
+                android:id="@+id/img_user"
+                android:layout_width="117dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/user"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:textAppearance="?android:textAppearanceLarge" />
+
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:hint="First Name"
+                android:textColorHint="#bcbcbc"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv_firstName_useraccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="First Name"
+                android:textSize="20dp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="105dp"
+                android:textColorHint="#bcbcbc"
+                android:hint="Last Name"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv_lastName_user_account"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="105dp"
+                android:layout_marginTop="10dp"
+                android:hint="Last Name"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginEnd="105dp"
+                android:textColorHint="#bcbcbc"
+                android:hint="Email ID"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv_email_user_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:hint="Email"
+
+
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColorHint="#bcbcbc"
+                android:layout_marginEnd="105dp"
+                android:hint="Mobile"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tv_mobile_user_account"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:hint="Mobile Number"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColorHint="#bcbcbc"
+                android:layout_margin="10dp"
+                android:layout_marginEnd="105dp"
+                android:hint="Address"
+                android:textSize="12dp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/tv_address_user_account"
+                    android:layout_width="306dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:cursorVisible="false"
+                    android:hint="Address"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/pencil"
+
+                    android:id="@+id/edit"
+                    android:layout_toRightOf="@id/tv_address_user_account"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+
+            android:layout_marginTop="30dp"
+            android:background="#ffffff"
+            >
+        <android.support.v7.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            app:cardCornerRadius="15dp"
+            >
+
+            <TextView
+                android:layout_width="229dp"
+                android:layout_height="match_parent"
+                android:text="SignOut"
+                android:id="@+id/signout"
+                android:background="#e4e4e4"
+                android:textSize="20dp"
+                android:gravity="center"/>
+
+
+        </android.support.v7.widget.CardView>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

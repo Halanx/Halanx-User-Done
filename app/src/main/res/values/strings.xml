@@ -1,0 +1,72 @@
+<resources>
+    <string name="password">Password</string>
+
+    <string name="facebook_app_id">1275803525879195</string>
+
+    <string name="fb_login_protocol_scheme">fb1843637429286224</string>
+
+    <string name="prompt">This is prompt</string>
+
+    <string name="email_id">Email ID</string>
+
+    <string name="sign_in">SIGN IN</string>
+
+    <string name="forgot">Forgot Password</string>
+
+    <string name="text">New Here! SIGN UP</string>
+
+    <string name="sign_up">SIGN UP</string>
+
+    <string name="firstname">Firstname</string>
+
+    <string name="lastname">Lastname</string>
+
+    <string name="ph_no">Phone No.</string>
+
+    <string name="title_activity_home">Home</string>
+
+    <string name="item_name">Item Name</string>
+
+    <string name="item_price">Item Price</string>
+
+    <string name="caption">Rs X more for FREE DELIVERY</string>
+
+    <string name="payment">Add to CART</string>
+
+    <string name="action">Tap the Circle to Accept</string>
+
+    <string name="sign_out">Sign Out</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_activity_maps">Map</string>
+
+    <string name="app_name">UserAppHalanx</string>
+    <string name="sign_up_here"><u>Sign up here</u></string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="prompt_for">For :</string>
+    <string name="get_cashback">Get cashback and points when your friend purchases the first time.</string>
+    <string name="share_now">Share Now</string>
+    <string name="title_activity_maps_new">Map</string>
+
+
+    <string-array name="query_suggestion">
+        <item>furniture</item>
+        <item>services</item>
+    </string-array>
+
+</resources>

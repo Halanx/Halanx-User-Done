@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ececec"
+    tools:context="com.halanx.tript.userapp.Activities.ScheduleActivity">
+
+    <devs.mulham.horizontalcalendar.HorizontalCalendarView
+        android:id="@+id/datePicker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        app:textColorSelected="#d23030"/>
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Desired Delivery Time"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:id="@+id/text"
+        android:layout_below="@+id/datePicker"/>
+
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/text"
+        android:id="@+id/rg">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/rg1">
+
+            <android.support.v7.widget.CardView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_weight="1">
+                <RadioButton
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:text="09:00-10:30 am"
+                    android:checked="false"
+                    android:id="@+id/t1"
+                    android:layout_weight="1"
+                    />
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_weight="1">
+                <RadioButton
+                    android:id="@+id/t2"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:text="10:30-12:00am"
+                    android:checked="false"
+                    android:layout_weight="1"
+                    />
+            </android.support.v7.widget.CardView>
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/rg2" >
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_weight="1">
+                <RadioButton
+                    android:id="@+id/t3"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:text="12:00-03:00pm"
+                    android:checked="false"
+                    android:layout_weight="1"
+                    />
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_weight="1">
+                <RadioButton
+                    android:id="@+id/t4"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:text="03:00-05:00pm"
+                    android:checked="false"
+                    android:layout_weight="1"
+                    />
+            </android.support.v7.widget.CardView>
+        </RadioGroup>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/rg3" >
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_weight="1">
+                <RadioButton
+                    android:id="@+id/t5"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:text="05:00-07:00pm"
+                    android:checked="false"
+                    android:layout_weight="1"
+                    />
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:clickable="true"
+                app:cardCornerRadius="5dp"
+                app:cardElevation="5dp"
+                android:layout_weight="1">
+                <RadioButton
+                    android:id="@+id/t6"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:text="07:00-09:00pm"
+                    android:checked="false"
+                    android:layout_weight="1"
+                    />
+            </android.support.v7.widget.CardView>
+        </RadioGroup>
+
+    </RadioGroup>
+    <android.support.v7.widget.CardView
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="5dp">
+    <Button
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:id="@+id/button_done"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:text="DONE"
+        android:background="#ffffff"/>
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+</RelativeLayout>
