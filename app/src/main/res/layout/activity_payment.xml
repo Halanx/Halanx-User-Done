@@ -17,6 +17,7 @@
         android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:padding="10dp">
 
         <ImageView
@@ -36,6 +37,7 @@
     <LinearLayout
         android:id="@+id/ll_PayTM"
         android:clickable="true"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -64,7 +66,7 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/tw__composer_logo_blue" />
+            android:src="@drawable/cod" />
 
         <TextView
             android:layout_width="match_parent"
