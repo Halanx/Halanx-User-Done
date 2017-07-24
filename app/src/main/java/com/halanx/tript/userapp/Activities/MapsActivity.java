@@ -53,6 +53,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.halanx.tript.userapp.LocService;
 import com.halanx.tript.userapp.R;
 
 import org.json.JSONException;
@@ -111,7 +112,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         getSharedPreferences("Store", Context.MODE_PRIVATE).edit().
                 putBoolean("isMap", true).apply();
-
 
 
      /*  FirebaseOptions options = new FirebaseOptions.Builder()
@@ -263,11 +263,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (mCurrLocationMarker != null) {
 
                     mapFrag.getMapAsync(MapsActivity.this);
+                    Intent intent = new Intent(MapsActivity.this, LocService.class);
+                    startService(intent);
 
 
                     LocalBroadcastManager.getInstance(MapsActivity.this).registerReceiver(
                             mMessageReceiver, new IntentFilter("GPSLocationUpdates"));
-//                    Toast.makeText(MapsActivity.this, "Your current location!", Toast.LENGTH_SHORT).show();
                 } else {
 
                     buildGoogleApiClient();
@@ -294,8 +295,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         public void onReceive(Context context, Intent intent) {
             lat = intent.getDoubleExtra("latitude", 0.0);
             lon = intent.getDoubleExtra("longitude", 0.0);
-//            Toast.makeText(context, "" + lat, Toast.LENGTH_SHORT).show();
-//            Toast.makeText(context, "" + lon, Toast.LENGTH_SHORT).show();
 
             LatLng l = new LatLng(lat, lon);
             mCurrLocationMarker.setPosition(l);
@@ -327,7 +326,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
                 mGoogleMap.setMyLocationEnabled(true);
-//                Toast.makeText(this, "Build", Toast.LENGTH_SHORT).show();
             } else {
                 checkLocationPermission();
 
@@ -338,17 +336,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
         }
-        mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-            @Override
-            public void onCameraMove() {
-                LatLng centerOfMap = mGoogleMap.getCameraPosition().target;
-                if (mCurrLocationMarker!=null) {
-
-                    mCurrLocationMarker.setPosition(centerOfMap);
-                }
-
-            }
-        });
 
         //CODE TO BE USED LATER
 //            GoogleDirection.withServerKey("AIzaSyDGpGmvzDetvS5IVrvceXvpgh83f6QSSis").
@@ -481,9 +468,21 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         //Giving null point
-     }
+        {
+            mGoogleMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+                @Override
+                public void onCameraMove() {
+                    LatLng centerOfMap = mGoogleMap.getCameraPosition().target;
+                    if (mCurrLocationMarker != null) {
+                        mCurrLocationMarker.setPosition(centerOfMap);
+
+                    }
 
 
+                }
+            });
+        }
+    }
 
     private void checkLocationServices() {
 
@@ -524,7 +523,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mLocationRequest.setInterval(10000);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-//        Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
@@ -544,7 +542,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onLocationChanged(Location location) {
         if (i == 1 || i == 2) {
-
 
 
             mLastLocation = location;
@@ -618,7 +615,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     }
                 } else {
-                    Toast.makeText(this, "Permission Denied", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
                 }
             }
         }
