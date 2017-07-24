@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.halanx.tript.userapp">
 
     <uses-sdk
@@ -98,7 +97,7 @@
             android:parentActivityName=".Activities.HomeActivity" />
         <activity
             android:name=".Activities.SavedCardsActivity"
-            android:label="Saved Cards"
+            android:label="Payment"
             android:parentActivityName=".Activities.HomeActivity" />
         <activity
             android:name=".Activities.AccountActivity"
@@ -110,7 +109,7 @@
             android:parentActivityName=".Activities.CartActivity" />
         <activity
             android:name=".Activities.StoresActivity"
-            android:label="Stores"/>
+            android:label="Stores" />
 
 
         <service android:name=".LocService" />

@@ -7,19 +7,28 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.halanx.tript.userapp.R;
 
 public class ReferEarnActivity extends AppCompatActivity {
 
     ImageButton ib_frag_share;
+    TextView tvShare;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_refer_earn);
 
         ib_frag_share = (ImageButton) findViewById(R.id.ib_frag_share);
+        tvShare = (TextView) findViewById(R.id.tv_share);
         ib_frag_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shareIt();
+            }
+        });
+        tvShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 shareIt();
