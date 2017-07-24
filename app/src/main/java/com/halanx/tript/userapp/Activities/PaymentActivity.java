@@ -37,6 +37,7 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     Retrofit retrofit;
     DataInterface client;
     OrderInfo order;
+
     ProgressDialog pd;
 
     @Override
@@ -58,18 +59,18 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
             date = String.valueOf(getIntent().getStringExtra("Date"));
             timings = String.valueOf(getIntent().getStringExtra("Timings"));
 
-            Log.d("date_change",date);
-            Log.d("date_change",timings);
+            Log.d("date_change", date);
+            Log.d("date_change", timings);
             starttime = timings.substring(0, 5);
             endtime = timings.substring(6, 11);
         }
 
-        ll1 = (LinearLayout) findViewById(R.id.ll_CreditDebitCard);
-        ll2 = (LinearLayout) findViewById(R.id.ll_PayTM);
+//        ll1 = (LinearLayout) findViewById(R.id.ll_CreditDebitCard);
+//        ll2 = (LinearLayout) findViewById(R.id.ll_PayTM);
         ll3 = (LinearLayout) findViewById(R.id.ll_Cash);
 
-        ll1.setOnClickListener(this);
-        ll2.setOnClickListener(this);
+//        ll1.setOnClickListener(this);
+//        ll2.setOnClickListener(this);
         ll3.setOnClickListener(this);
 
     }
@@ -79,57 +80,66 @@ public class PaymentActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
 
         switch (view.getId()) {
+//            case R.id.ll_Cash:
+//            case R.id.ll_CreditDebitCard:
+
             case R.id.ll_Cash:
-
-
-            case R.id.ll_CreditDebitCard:
-
-            case R.id.ll_PayTM:
 
                 SharedPreferences sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
                 long userMobile = Long.parseLong(sharedPreferences.getString("MobileNumber", null));
 
                 SharedPreferences sharedPref = getSharedPreferences("location", Context.MODE_PRIVATE);
-                float latitude = sharedPref.getFloat("latitudeDelivery",0);// LATITUDE
-                float longitude = sharedPref.getFloat("longitudeDelivery",0);// LONGITUDE
-                Log.d("latitudea",""+latitude);
-                Log.d("longitude",""+longitude);
+                float latitude = sharedPref.getFloat("latitudeDelivery", 0);// LATITUDE
+                float longitude = sharedPref.getFloat("longitudeDelivery", 0);// LONGITUDE
+                Log.d("latitudea", "" + latitude);
+                Log.d("longitude", "" + longitude);
 
                 if ((getIntent().getBooleanExtra("deliveryScheduled", false))) {
 
-                    order = new OrderInfo(userMobile, addressDetails, date, starttime, endtime, null,latitude,longitude);
-                    Log.d("done","done");
+                    order = new OrderInfo(userMobile, addressDetails, date, starttime, endtime, null, latitude, longitude);
+                    Log.d("done", "done");
                 } else if (!(getIntent().getBooleanExtra("deliveryScheduled", true))) {
                     String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-                    order = new OrderInfo(userMobile, addressDetails, date, null, null, "Delivery ASAP",latitude,longitude);
+                    order = new OrderInfo(userMobile, addressDetails, date, null, null, "Delivery ASAP", latitude, longitude);
                 }
 
 
                 Log.i("ORDER", order.getDeliveryAddress() + order.getLatitude() + order.getLongitude());
 
 
-//                pd = new ProgressDialog(PaymentActivity.this);
-//                pd.setTitle("Please wait");
-//                pd.setMessage("Posting your order");
-//                pd.show();
+                pd = new ProgressDialog(PaymentActivity.this);
+                pd.setTitle("Please wait");
+                pd.setMessage("Posting your order");
+                pd.setCancelable(false);
+                pd.show();
+
                 Call<OrderInfo> callOrder = client.postUserOrder(order);
                 callOrder.enqueue(new Callback<OrderInfo>() {
                     @Override
                     public void onResponse(Call<OrderInfo> call, Response<OrderInfo> response) {
-                        Toast.makeText(PaymentActivity.this, "Order Placed", Toast.LENGTH_SHORT).show();
-//                        pd.dismiss();
+//                        Toast.makeText(PaymentActivity.this, "Order Placed", Toast.LENGTH_SHORT).show();
+
+                        pd.setTitle("Order placed!");
+                        pd.setMessage("You can review your order in orders.");
+                        pd.dismiss();
+
+                        startActivity(new Intent(PaymentActivity.this, HomeActivity.class));
+                        finish();
+
                     }
 
                     @Override
                     public void onFailure(Call<OrderInfo> call, Throwable t) {
-                        Log.d("TAG", "Order fail");
-//                        pd.dismiss();
+
+                        Toast.makeText(PaymentActivity.this, "Network error", Toast.LENGTH_SHORT).show();
+                        pd.dismiss();
+
                     }
                 });
 
-                startActivity(new Intent(PaymentActivity.this, HomeActivity.class));
-                finish();
+                break;
+
 
         }
     }

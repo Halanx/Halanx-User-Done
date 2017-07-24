@@ -8,9 +8,6 @@
     tools:context="com.halanx.tript.userapp.Activities.FavouritesActivity">
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Favourites Displayed Here" />
+
 
 </LinearLayout>

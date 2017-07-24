@@ -264,6 +264,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
 
                 main.setVisibility(View.VISIBLE);
                 stores.setVisibility(View.GONE);
+                Log.d("position", String.valueOf(pos));
+                Log.d("storeID", String.valueOf(storesList.get(pos).getId()));
 
                 getActivity().getSharedPreferences("Store", Context.MODE_PRIVATE).edit().
                         putInt("storeID", storesList.get(pos).getId()).
