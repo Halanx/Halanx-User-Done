@@ -113,6 +113,7 @@
             android:label="Stores"/>
 
 
+        <service android:name=".LocService" />
         <!-- Firebase Notifications -->
         <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
