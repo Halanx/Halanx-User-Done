@@ -60,17 +60,20 @@
             android:text="Call : 9898989898"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="18sp"
+
+            android:autoLink="phone"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
             android:id="@+id/textView5" />
 
         <TextView
-            android:text="For any query, contact us at email@email.com"
+            android:text="For any query, contact us at :  support@halanx.com"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autoLink="email"
             android:layout_marginBottom="25dp"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:id="@+id/textView"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true" />
