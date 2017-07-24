@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="android-week-view-1.2.6">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/b78baecc42a935d3c644c9beebc553e790df158f/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/b78baecc42a935d3c644c9beebc553e790df158f/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/db5b6b3a2ccc6577ed8e3c659053c782d5863685/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/db5b6b3a2ccc6577ed8e3c659053c782d5863685/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
