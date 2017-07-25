@@ -22,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.GsonBuilder;
 import com.halanx.tript.userapp.Fragments.MainFragment;
@@ -71,6 +73,10 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+
+
 
         barLayout = (AppBarLayout) findViewById(R.id.app_bar);
 
@@ -188,6 +194,25 @@ public class HomeActivity extends AppCompatActivity
 
                      }
         );
+
+        sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+        if(sharedPreferences.getBoolean("first_login",false)) {
+
+            ViewTarget target = new ViewTarget(R.id.imageButton_location, this);
+            ShowcaseView sv = new ShowcaseView.Builder(this)
+                    .withMaterialShowcase()
+                    .setTarget(target)
+                    .setContentTitle("DELIVERY LOCATION")
+                    .setContentText("Change your Delivery Location and Search for Nearby By stores by just a singe Tap ")
+                    .withHoloShowcase()
+                    .setStyle(R.style.CustomShowcaseTheme3)
+                    .build();
+
+
+        }
+        getSharedPreferences("status", Context.MODE_PRIVATE).edit().
+                putBoolean("Loginned", false).apply();
+
 
     }
 

@@ -76,6 +76,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
 
+
         storeSpinner = (Spinner) view.findViewById(R.id.store_spinner);
         categorySpinner = (Spinner) view.findViewById(R.id.for_spinner);
 
@@ -264,6 +265,8 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
 
                 main.setVisibility(View.VISIBLE);
                 stores.setVisibility(View.GONE);
+                Log.d("position", String.valueOf(pos));
+                Log.d("storeID", String.valueOf(storesList.get(pos).getId()));
 
                 getActivity().getSharedPreferences("Store", Context.MODE_PRIVATE).edit().
                         putInt("storeID", storesList.get(pos).getId()).

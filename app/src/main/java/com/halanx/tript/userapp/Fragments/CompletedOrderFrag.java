@@ -83,23 +83,6 @@ public class CompletedOrderFrag extends Fragment {
                 allOrdersList = response.body();
                 progressBar.setVisibility(View.GONE);
 
-//                if (allOrdersList != null) {
-//                    Log.i("OrderBro", "Not null");
-//                    adapter = new OrdersAdapter(allOrdersList, getActivity(), true);
-//                    layoutManager = new LinearLayoutManager(getActivity());
-//                    recyclerView.setLayoutManager(layoutManager);
-//                    recyclerView.setAdapter(adapter);
-//                    recyclerView.setHasFixedSize(true);
-//
-//                } else {
-//                    Log.i("OrderBro", "Null hai");
-//
-//
-//                }
-
-
-                //  Log.i("TAG",allOrdersList.get(0).getDeliveryDate());
-
                 if (!allOrdersList.isEmpty()) {
                     completedOrderList = new ArrayList<>();
 
@@ -111,7 +94,6 @@ public class CompletedOrderFrag extends Fragment {
                     }
 
                     if (completedOrderList.size() > 0) {
-                        // Log.i("TAG",completedOrderList.get(0).getDeliveryDate());
                         adapter = new OrdersAdapter(completedOrderList, getActivity(),true);
                         layoutManager = new LinearLayoutManager(getActivity());
                         recyclerView.setLayoutManager(layoutManager);
@@ -123,6 +105,10 @@ public class CompletedOrderFrag extends Fragment {
                     }
 
 
+                }
+
+                else {
+                    llNoOrders.setVisibility(View.VISIBLE);
                 }
             }
 

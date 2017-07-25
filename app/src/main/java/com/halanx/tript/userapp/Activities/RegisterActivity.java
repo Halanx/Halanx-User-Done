@@ -30,6 +30,8 @@ import com.halanx.tript.userapp.R;
 import com.katepratik.msg91api.MSG91;
 
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,6 +64,7 @@ RegisterActivity extends AppCompatActivity {
     String random;
     MSG91 msg91 = new MSG91("156475AdUYanwCiKI35970f67d");
     String email, password, firstName, lastName, icode;
+    EditText otp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +81,6 @@ RegisterActivity extends AppCompatActivity {
         retrofit = builder.build();
         client = retrofit.create(DataInterface.class);
 
-        btnRegister = (Button) findViewById(R.id.btn_register);
         btnVerify = (Button) findViewById(R.id.btn_verify);
         inputEmail = (EditText) findViewById(R.id.tv_email);
         inputPassword = (EditText) findViewById(R.id.tv_password);
@@ -138,7 +140,10 @@ RegisterActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter mobile address!", Toast.LENGTH_SHORT).show();
                     return;
-                } else if (TextUtils.isEmpty(password)) {
+                } else if(!emailValidator(email)){
+                    Toast.makeText(RegisterActivity.this, "Please enter valid email address", Toast.LENGTH_SHORT).show();
+                }
+                else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (password.length() < 6) {
@@ -156,6 +161,7 @@ RegisterActivity extends AppCompatActivity {
                 }
 
 
+
                 //Internet available
                 if (isNetworkAvailable(getApplicationContext())) {
 
@@ -170,7 +176,8 @@ RegisterActivity extends AppCompatActivity {
                     window.setLayout(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
 
                     TextView tvResendOtp = (TextView) dialog.findViewById(R.id.resend);
-                    final EditText otp = (EditText) dialog.findViewById(R.id.enterOTP);
+
+                    otp = (EditText) dialog.findViewById(R.id.enterOTP);
                     Button btnOtpSubmit = (Button) dialog.findViewById(R.id.btnOTPsubmit);
                     TextView tvNumber = (TextView) dialog.findViewById(R.id.dialogue_number);
 
@@ -183,7 +190,6 @@ RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(RegisterActivity.this, "User Verified", Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
                                 registration();
-                                btnRegister.performClick();
                             } else {
                                 Toast.makeText(RegisterActivity.this, "Incorrect OTP entered", Toast.LENGTH_LONG).show();
                                 return;
@@ -195,8 +201,8 @@ RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
 
-                            String random = sendOtp();
-                            if (otp.getText().toString().equals(random)) {
+                            String randomResend = sendOtp();
+                            if (otp.getText().toString().equals(randomResend)) {
                                 Toast.makeText(RegisterActivity.this, "User Verified", Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
                                 registration();
@@ -210,7 +216,9 @@ RegisterActivity extends AppCompatActivity {
 
 
                 } else {
+
                     Toast.makeText(RegisterActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -252,7 +260,12 @@ RegisterActivity extends AppCompatActivity {
                                     Log.i("TAG", response);
                                     getSharedPreferences("Login", Context.MODE_PRIVATE).edit().
                                             putString("UserInfo", response).putString("MobileNumber", mobileNumber).
+                                            putBoolean("first_login", true).
                                             putBoolean("Loginned", true).apply();
+
+                                    getSharedPreferences("status", Context.MODE_PRIVATE).edit().
+                                            putBoolean("Loginned", true).apply();
+
                                     progressRegister.setVisibility(View.GONE);
                                     startActivity(new Intent(RegisterActivity.this, MapsActivity.class));
                                     finish();
@@ -335,6 +348,16 @@ RegisterActivity extends AppCompatActivity {
         return random;
 
 
+    }
+
+    public boolean emailValidator(String email)
+    {
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
 

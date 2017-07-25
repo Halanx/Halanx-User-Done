@@ -19,7 +19,6 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.gson.GsonBuilder;
 import com.halanx.tript.userapp.Adapters.OrdersAdapter;
 import com.halanx.tript.userapp.Interfaces.DataInterface;
 import com.halanx.tript.userapp.POJO.OrderInfo;
@@ -89,7 +88,7 @@ public class OngoingOrderFrag extends Fragment {
                 if (!allOrdersList.isEmpty()) {
                     onGoingOrderList = new ArrayList<>();
 
-                    for (int i = 0; i < allOrdersList.size(); i++) {
+                    for (int i = (allOrdersList.size()-1); i > 0 ; i--) {
                         if (!allOrdersList.get(i).getIsDelivered()) {
                             //Completed order = isDelivered is true
                             onGoingOrderList.add(allOrdersList.get(i));
@@ -109,6 +108,10 @@ public class OngoingOrderFrag extends Fragment {
                     }
 
 
+                }
+
+                else {
+                    llNoOrders.setVisibility(View.VISIBLE);
                 }
             }
 
