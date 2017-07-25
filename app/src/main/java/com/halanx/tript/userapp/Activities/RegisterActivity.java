@@ -256,7 +256,8 @@ RegisterActivity extends AppCompatActivity {
                                             putBoolean("Loginned", true).apply();
 
                                     getSharedPreferences("status", Context.MODE_PRIVATE).edit().
-                                            putBoolean("Loginned", true).apply();
+                                            putBoolean("first_login", true).apply();
+
 
                                     progressRegister.setVisibility(View.GONE);
                                     startActivity(new Intent(RegisterActivity.this, MapsActivity.class));

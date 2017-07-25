@@ -195,7 +195,7 @@ public class HomeActivity extends AppCompatActivity
                      }
         );
 
-        sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("status", Context.MODE_PRIVATE);
         if(sharedPreferences.getBoolean("first_login",false)) {
 
             ViewTarget target = new ViewTarget(R.id.imageButton_location, this);
@@ -211,7 +211,7 @@ public class HomeActivity extends AppCompatActivity
 
         }
         getSharedPreferences("status", Context.MODE_PRIVATE).edit().
-                putBoolean("Loginned", false).apply();
+                putBoolean("first_login", false).apply();
 
 
     }
