@@ -174,7 +174,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 suggestions.clear();
 
                 String url = "https://maps.googleapis.com//maps/api/place/autocomplete/json?input="
-                        + newText + "&components=country:in&key=AIzaSyDGpGmvzDetvS5IVrvceXvpgh83f6QSSis";
+                        + newText + "&components=country:in&key=AIzaSyDQOsW7KTGBZpQ1xlh_8ABkABoEr_pbeOc";
                 Volley.newRequestQueue(MapsActivity.this).add(new StringRequest(Request.Method.GET, url.replace(" ", "+").trim(),
                         new com.android.volley.Response.Listener<String>() {
                             @Override
@@ -384,7 +384,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.d("TAG", "" + lon);
 
 
-                    String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&key=AIzaSyDGpGmvzDetvS5IVrvceXvpgh83f6QSSis";
+                    String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&key=AIzaSyDQOsW7KTGBZpQ1xlh_8ABkABoEr_pbeOc";
                     Volley.newRequestQueue(MapsActivity.this).add(new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
