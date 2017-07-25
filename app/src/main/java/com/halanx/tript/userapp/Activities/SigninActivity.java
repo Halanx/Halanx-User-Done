@@ -1,10 +1,16 @@
 package com.halanx.tript.userapp.Activities;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,21 +26,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.halanx.tript.userapp.Interfaces.DataInterface;
 import com.halanx.tript.userapp.POJO.Resp;
 import com.halanx.tript.userapp.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +38,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.halanx.tript.userapp.Activities.MapsActivity.MY_PERMISSIONS_REQUEST_LOCATION;
 import static com.halanx.tript.userapp.GlobalAccess.phpBaseUrl;
 
 /**
@@ -67,14 +64,46 @@ public class SigninActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission Needed")
+                        .setMessage("This app needs the Location permission, please accept to use location functionality")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(SigninActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        }).create().show();
 
-
-        sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
-        Boolean loginStatus = sharedPreferences.getBoolean("Loginned", false);
-        if (loginStatus) {
-            startActivity(new Intent(SigninActivity.this, MapsActivity.class));
-            finish();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
         }
+
+
+            sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+        Boolean loginStatus = sharedPreferences.getBoolean("Loginned", false);
+
+        if (loginStatus) {
+            if(sharedPreferences.getBoolean("first_login",false)) {
+                startActivity(new Intent(SigninActivity.this, HomeActivity.class));
+                finish();
+            }
+            else
+                {
+                startActivity(new Intent(SigninActivity.this, MapsActivity.class));
+                finish();
+            }
+        }
+
+
 
 
         //FACEBOOK SDK
@@ -134,6 +163,7 @@ public class SigninActivity extends AppCompatActivity {
                                     Log.i("TAG", response);
                                     getSharedPreferences("Login", Context.MODE_PRIVATE).edit().
                                             putString("UserInfo", response).putString("MobileNumber", mobile).
+                                            putBoolean("first_login", true).
                                             putBoolean("Loginned", true).apply();
 
 
@@ -180,78 +210,78 @@ public class SigninActivity extends AppCompatActivity {
 
 
         // FACEBOOK LOGIN
-        fblogin = (LoginButton) findViewById(R.id.login_button);
-        fblogin.setReadPermissions(Arrays.asList(
-                "public_profile", "email", "user_birthday", "user_friends"));
-        callbackManager = CallbackManager.Factory.create();
-
-        fblogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(final LoginResult loginResult) {
-                Log.d("enter", "4");
-
-
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-
-
-                                Log.v("LoginActivity", String.valueOf(loginResult.getAccessToken()));
-                                Log.d("fb_data", String.valueOf(object));
-
-                                try {// Application code
-
-                                    name = object.getString("name");
-                                    Log.d("FB NAME", name);
-
-                                    email = object.getString("email");
-                                    Log.d("FB NAME", email);
+//        fblogin = (LoginButton) findViewById(R.id.login_button);
+//        fblogin.setReadPermissions(Arrays.asList(
+//                "public_profile", "email", "user_birthday", "user_friends"));
+//        callbackManager = CallbackManager.Factory.create();
 //
-                                    namea = name.trim().split("\\s+");
-                                    getSharedPreferences("fbdata", Context.MODE_PRIVATE).edit().
-                                            putBoolean("fbloginned", true)
-                                            .putString("first_name", namea[0])
-                                            .putString("last_name", namea[2])
-                                            .putString("email", email).apply();
-
-
-//                                   // 01/31/1980 format
-                                } catch (JSONException e) {
-                                    Log.d("catch", e.toString());
-                                    e.printStackTrace();
-                                }
-                            }
-
-                        });
-                Bundle parameters = new Bundle();
-
-                parameters.putString("fields", "id,name,email,gender,birthday");
-                request.setParameters(parameters);
-                request.executeAsync();
-
-
-//                Toast.makeText(SigninActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                Log.d("Intent", "1");
-                Intent intent = new Intent(SigninActivity.this, RegisterActivity.class);
-                startActivity(intent);
-
-
-            }
-
-            @Override
-            public void onCancel() {
-                // App code
-                Log.v("LoginActivity", "cancel");
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                // App code
-                Log.v("LoginActivity", exception.getCause().toString());
-            }
-        });
+//        fblogin.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(final LoginResult loginResult) {
+//                Log.d("enter", "4");
+//
+//
+//                GraphRequest request = GraphRequest.newMeRequest(
+//                        loginResult.getAccessToken(),
+//                        new GraphRequest.GraphJSONObjectCallback() {
+//                            @Override
+//                            public void onCompleted(JSONObject object, GraphResponse response) {
+//
+//
+//                                Log.v("LoginActivity", String.valueOf(loginResult.getAccessToken()));
+//                                Log.d("fb_data", String.valueOf(object));
+//
+//                                try {// Application code
+//
+//                                    name = object.getString("name");
+//                                    Log.d("FB NAME", name);
+//
+//                                    email = object.getString("email");
+//                                    Log.d("FB NAME", email);
+////
+//                                    namea = name.trim().split("\\s+");
+//                                    getSharedPreferences("fbdata", Context.MODE_PRIVATE).edit().
+//                                            putBoolean("fbloginned", true)
+//                                            .putString("first_name", namea[0])
+//                                            .putString("last_name", namea[2])
+//                                            .putString("email", email).apply();
+//
+//
+////                                   // 01/31/1980 format
+//                                } catch (JSONException e) {
+//                                    Log.d("catch", e.toString());
+//                                    e.printStackTrace();
+//                                }
+//                            }
+//
+//                        });
+//                Bundle parameters = new Bundle();
+//
+//                parameters.putString("fields", "id,name,email,gender,birthday");
+//                request.setParameters(parameters);
+//                request.executeAsync();
+//
+//
+////                Toast.makeText(SigninActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+//                Log.d("Intent", "1");
+//                Intent intent = new Intent(SigninActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancel() {
+//                // App code
+//                Log.v("LoginActivity", "cancel");
+//            }
+//
+//            @Override
+//            public void onError(FacebookException exception) {
+//                // App code
+//                Log.v("LoginActivity", exception.getCause().toString());
+//            }
+//        });
 
 
 //                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),

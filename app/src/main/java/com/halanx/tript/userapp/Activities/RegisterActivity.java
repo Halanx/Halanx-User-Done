@@ -252,6 +252,7 @@ RegisterActivity extends AppCompatActivity {
                                     Log.i("TAG", response);
                                     getSharedPreferences("Login", Context.MODE_PRIVATE).edit().
                                             putString("UserInfo", response).putString("MobileNumber", mobileNumber).
+                                            putBoolean("first_login", true).
                                             putBoolean("Loginned", true).apply();
                                     progressRegister.setVisibility(View.GONE);
                                     startActivity(new Intent(RegisterActivity.this, MapsActivity.class));
