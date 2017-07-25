@@ -64,6 +64,8 @@ public class SigninActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -94,6 +96,7 @@ public class SigninActivity extends AppCompatActivity {
         if (loginStatus) {
             if(sharedPreferences.getBoolean("first_login",false)) {
                 startActivity(new Intent(SigninActivity.this, HomeActivity.class));
+
                 finish();
             }
             else
@@ -165,6 +168,9 @@ public class SigninActivity extends AppCompatActivity {
                                             putString("UserInfo", response).putString("MobileNumber", mobile).
                                             putBoolean("first_login", true).
                                             putBoolean("Loginned", true).apply();
+                                    getSharedPreferences("status", Context.MODE_PRIVATE).edit().
+                                            putBoolean("Loginned", true).apply();
+
 
 
                                     Log.i("TAG", response);

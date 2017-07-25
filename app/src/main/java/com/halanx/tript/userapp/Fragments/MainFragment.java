@@ -76,6 +76,7 @@ public class MainFragment extends Fragment implements AdapterView.OnItemSelected
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
 
+
         storeSpinner = (Spinner) view.findViewById(R.id.store_spinner);
         categorySpinner = (Spinner) view.findViewById(R.id.for_spinner);
 

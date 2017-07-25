@@ -78,7 +78,6 @@ RegisterActivity extends AppCompatActivity {
         retrofit = builder.build();
         client = retrofit.create(DataInterface.class);
 
-        btnRegister = (Button) findViewById(R.id.btn_register);
         btnVerify = (Button) findViewById(R.id.btn_verify);
         inputEmail = (EditText) findViewById(R.id.tv_email);
         inputPassword = (EditText) findViewById(R.id.tv_password);
@@ -183,7 +182,6 @@ RegisterActivity extends AppCompatActivity {
                                 Toast.makeText(RegisterActivity.this, "User Verified", Toast.LENGTH_LONG).show();
                                 dialog.dismiss();
                                 registration();
-                                btnRegister.performClick();
                             } else {
                                 Toast.makeText(RegisterActivity.this, "Incorrect OTP entered", Toast.LENGTH_LONG).show();
                                 return;
@@ -210,7 +208,9 @@ RegisterActivity extends AppCompatActivity {
 
 
                 } else {
+
                     Toast.makeText(RegisterActivity.this, "No internet connection", Toast.LENGTH_SHORT).show();
+
                 }
 
 
@@ -254,6 +254,10 @@ RegisterActivity extends AppCompatActivity {
                                             putString("UserInfo", response).putString("MobileNumber", mobileNumber).
                                             putBoolean("first_login", true).
                                             putBoolean("Loginned", true).apply();
+
+                                    getSharedPreferences("status", Context.MODE_PRIVATE).edit().
+                                            putBoolean("Loginned", true).apply();
+
                                     progressRegister.setVisibility(View.GONE);
                                     startActivity(new Intent(RegisterActivity.this, MapsActivity.class));
                                     finish();
