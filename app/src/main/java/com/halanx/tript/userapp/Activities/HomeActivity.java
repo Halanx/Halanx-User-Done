@@ -131,6 +131,7 @@ public class HomeActivity extends AppCompatActivity
             SharedPreferences sharedPreferences = getSharedPreferences("FB_DATA", Context.MODE_PRIVATE);
             String fName = sharedPreferences.getString("fbName", "halanx");
             Log.d("fname", fName);
+
             String fEmail = sharedPreferences.getString("fbEmail", "halanx");
             Log.d("femail", fEmail);
             String image = sharedPreferences.getString("fbPic", "halanx");
@@ -198,7 +199,7 @@ public class HomeActivity extends AppCompatActivity
                      }
         );
 
-        sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("status", Context.MODE_PRIVATE);
         if (sharedPreferences.getBoolean("first_login", false)) {
 
             ViewTarget target = new ViewTarget(R.id.imageButton_location, this);
@@ -214,8 +215,7 @@ public class HomeActivity extends AppCompatActivity
 
         }
         getSharedPreferences("status", Context.MODE_PRIVATE).edit().
-                putBoolean("Loginned", false).apply();
-
+                putBoolean("first_login", false).apply();
 
     }
 
@@ -304,7 +304,8 @@ public class HomeActivity extends AppCompatActivity
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         String regId = pref.getString("regId", null);
         String url = "http://ec2-34-208-181-152.us-west-2.compute.amazonaws.com/users/" +
-                getSharedPreferences("Login", Context.MODE_PRIVATE).getString("MobileNumber", null);
+                getSharedPreferences("Login", Context.MODE_PRIVATE).getString("MobileNumber", null)+"/";
+        Log.i("Gcm",url);
         JSONObject obj = new JSONObject();
         try {
             obj.put("GcmId", regId);

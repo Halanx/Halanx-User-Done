@@ -1,14 +1,17 @@
 package com.halanx.tript.userapp.Activities;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.GsonBuilder;
 import com.halanx.tript.userapp.POJO.UserInfo;
@@ -21,9 +24,11 @@ public class AccountActivity extends AppCompatActivity {
     TextView tvFirstName, tvLastName, tvEmail, tvMobile, signout;
     EditText tvAddress;
     String mobileNumber;
+    EditText line1,line2,line3;
 
+    String addressDetails;
 
-    ImageView edit;
+    Button edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,15 +40,41 @@ public class AccountActivity extends AppCompatActivity {
         tvEmail = (TextView) findViewById(R.id.tv_email_user_account);
         tvAddress = (EditText) findViewById(R.id.tv_address_user_account);
         tvMobile = (TextView) findViewById(R.id.tv_mobile_user_account);
-        edit = (ImageView) findViewById(R.id.edit);
+        edit = (Button) findViewById(R.id.edit);
 
         signout = (TextView) findViewById(R.id.signout);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tvAddress.setCursorVisible(true);
-            }
-        });
+                final Dialog dialog = new Dialog(AccountActivity.this);
+                dialog.setContentView(R.layout.layout_custom_alert_dialogue);
+
+
+                line1 = (EditText) dialog.findViewById(R.id.et1_dialogue);
+                line2 = (EditText) dialog.findViewById(R.id.et2_dialogue);
+                line3 = (EditText) dialog.findViewById(R.id.et3_dialogue);
+                Button proceed = (Button) dialog.findViewById(R.id.btProceed_dialogue);
+                Button cancel = (Button) dialog.findViewById(R.id.btCancel_dialogue);
+
+                proceed.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (line1.getText().equals(" ") || line2.getText().equals(" ") || line3.getText().equals(" ")) {
+
+                            Toast.makeText(getApplicationContext(), "Enter Your Address", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Address Details Saved", Toast.LENGTH_SHORT).show();
+                            addressDetails = line1.getText().toString() + ", " + line2.getText().toString() + ", " + line3.getText().toString();
+                            Log.d("TAG", addressDetails);
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                tvAddress.setText(addressDetails);
+
+            }});
 
 
         String userInfo = getSharedPreferences("Login", Context.MODE_PRIVATE).getString("UserInfo", null);

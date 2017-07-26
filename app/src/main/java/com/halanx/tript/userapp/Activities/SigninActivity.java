@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -66,6 +67,26 @@ public class SigninActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Location services not enabled");  // GPS not found
+            builder.setMessage("Kindly enable the location services to proceed"); // Want to enable?
+            builder.setPositiveButton("Enable", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                }
+            });
+
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    finish();
+                }
+            });
+            builder.create().show();
+        }
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
@@ -90,11 +111,12 @@ public class SigninActivity extends AppCompatActivity {
         }
 
 
-            sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
-        Boolean loginStatus = sharedPreferences.getBoolean("Loginned", false);
+        sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
+            Boolean loginStatus = sharedPreferences.getBoolean("Loginned", false);
 
         if (loginStatus) {
             if(sharedPreferences.getBoolean("first_login",false)) {
+
                 startActivity(new Intent(SigninActivity.this, HomeActivity.class));
 
                 finish();
@@ -170,7 +192,8 @@ public class SigninActivity extends AppCompatActivity {
                                             putBoolean("Loginned", true).apply();
 
                                     getSharedPreferences("status", Context.MODE_PRIVATE).edit().
-                                            putBoolean("Loginned", true).apply();
+                                            putBoolean("first_login", true).apply();
+
 
 
 

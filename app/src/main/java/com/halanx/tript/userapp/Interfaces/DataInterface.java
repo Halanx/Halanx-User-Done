@@ -31,7 +31,7 @@ public interface DataInterface {
     @POST("/NewRegUser/register.php/")
     Call<Resp> register(@Field("firstname") String firstName, @Field("lastname") String lastName,
                         @Field("email") String email, @Field("password") String password,
-                        @Field("mobilenumber") String mobileNumber);
+                        @Field("mobilenumber") String mobileNumber, @Field("gcmid") String firebaseid);
 
     //User Login
     @FormUrlEncoded

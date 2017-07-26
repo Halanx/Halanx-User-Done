@@ -96,7 +96,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     LatLng latLon;
 
     LatLng currLoc;
-    String ApiKey = "AIzaSyAscohco5qTlQqIg4JGiN37Pm2ZhR3OxDU";
+    String ApiKey = "AIzaSyBnCtz4CuPtcZ-87zXLsYvH1BrkTTJ9eyw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

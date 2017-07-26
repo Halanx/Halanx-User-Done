@@ -19,6 +19,9 @@ public class UserInfo {
     @SerializedName("EmailId")
     @Expose
     private String emailId;
+    @SerializedName("GcmId")
+    @Expose
+    private String gcmid;
     @SerializedName("FirstName")
     @Expose
     private String firstName;
@@ -49,13 +52,14 @@ public class UserInfo {
 
 
 
-    public UserInfo(long phoneNo, String emailId, String firstName, String lastName, String password) {
+    public UserInfo(long phoneNo, String emailId, String firstName, String lastName, String password, String firebaseid) {
         this.phoneNo = phoneNo;
         this.emailId = emailId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
     }
+
 
     public Integer getId() {
         return id;
@@ -120,6 +124,14 @@ public class UserInfo {
     public void setAddress(String address) {
         this.address = address;
     }
+    public String getGcmid() {
+        return gcmid;
+    }
+
+    public void setGcmId(String gcmid) {
+        this.gcmid = gcmid;
+    }
+
 
     public Boolean getLoggedIn() {
         return loggedIn;
