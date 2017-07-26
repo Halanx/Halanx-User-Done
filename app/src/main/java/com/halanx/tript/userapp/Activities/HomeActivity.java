@@ -213,7 +213,6 @@ public class HomeActivity extends AppCompatActivity
         getSharedPreferences("status", Context.MODE_PRIVATE).edit().
                 putBoolean("first_login", false).apply();
 
-
     }
 
 
