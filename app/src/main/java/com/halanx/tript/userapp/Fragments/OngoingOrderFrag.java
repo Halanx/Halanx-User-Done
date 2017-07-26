@@ -109,6 +109,10 @@ public class OngoingOrderFrag extends Fragment {
 
 
                 }
+
+                else {
+                    llNoOrders.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

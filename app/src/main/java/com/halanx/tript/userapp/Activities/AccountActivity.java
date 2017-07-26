@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +28,7 @@ public class AccountActivity extends AppCompatActivity {
 
     String addressDetails;
 
-    ImageView edit;
+    Button edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class AccountActivity extends AppCompatActivity {
         tvEmail = (TextView) findViewById(R.id.tv_email_user_account);
         tvAddress = (EditText) findViewById(R.id.tv_address_user_account);
         tvMobile = (TextView) findViewById(R.id.tv_mobile_user_account);
-        edit = (ImageView) findViewById(R.id.edit);
+        edit = (Button) findViewById(R.id.edit);
 
         signout = (TextView) findViewById(R.id.signout);
         edit.setOnClickListener(new View.OnClickListener() {

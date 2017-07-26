@@ -111,7 +111,6 @@ public class SigninActivity extends AppCompatActivity {
         }
 
 
-
         sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
             Boolean loginStatus = sharedPreferences.getBoolean("Loginned", false);
 
@@ -193,6 +192,7 @@ public class SigninActivity extends AppCompatActivity {
                                             putBoolean("Loginned", true).apply();
                                     getSharedPreferences("status", Context.MODE_PRIVATE).edit().
                                             putBoolean("first_login", true).apply();
+
 
 
 
