@@ -65,7 +65,7 @@ public class OngoingOrderFrag extends Fragment {
         View v = inflater.inflate(R.layout.fragment_ongoing_order, container, false);
         recyclerView = (RecyclerView) v.findViewById(R.id.recycler_ongoingOrders);
         progressBar = (ProgressBar) v.findViewById(R.id.progressBar_ongoingOrders);
-
+        llNoOrders = (LinearLayout) v.findViewById(R.id.ll_no_completed);
 
         builder = new Retrofit.Builder().baseUrl(djangoBaseUrl).addConverterFactory(GsonConverterFactory.create());
         retrofit = builder.build();

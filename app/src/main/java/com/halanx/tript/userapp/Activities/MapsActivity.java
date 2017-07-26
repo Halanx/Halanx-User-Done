@@ -11,6 +11,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -80,22 +82,16 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Marker mCurrLocationMarker;
     SearchView searchView;
     TextView confirmBtn;
-    DatabaseReference shopperAppReferece;
-    FirebaseDatabase shopperDatabase;
-    FloatingSearchView mv;
-
-    boolean locBool = false, onetime = false;
     FloatingActionButton setLocation;
-    double lat, lon, latD, lonD, ulan = 0.0, ulon = 0.0;
+    double lat, lon, latD, lonD;
     int i = 0, x = 0;
     LatLng locationAfterOrder, userLocation;
     List<String> suggestions = new ArrayList<>();
     CardView cvConfirmLoc;
     SharedPreferences.Editor editor;
     String addressConfirm;
-    LatLng latLon;
-
     LatLng currLoc;
+
     String ApiKey = "AIzaSyBnCtz4CuPtcZ-87zXLsYvH1BrkTTJ9eyw";
 
     @Override
@@ -105,6 +101,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         setContentView(R.layout.activity_maps);
         cvConfirmLoc = (CardView) findViewById(R.id.cv_loc_confirm);
         setLocation = (FloatingActionButton) findViewById(R.id.set_location1);
+
+        //Check internet connection
+        if(!isNetworkAvailable()){
+            new AlertDialog.Builder(this)
+                    .setTitle("No internet connection")
+                    .setMessage("You are not connected to the internet").setCancelable(false)
+                    .setPositiveButton("Close", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+
+                    })
+                    .show();
+        }
+
+
+
         mapFrag = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         confirmBtn = (TextView) findViewById(R.id.confirmBtn);
         checkLocationServices();
@@ -623,6 +638,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         }
+    }
+
+    //Check internet connection
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 
