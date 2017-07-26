@@ -190,6 +190,7 @@ public class SigninActivity extends AppCompatActivity {
                                             putString("UserInfo", response).putString("MobileNumber", mobile).
                                             putBoolean("first_login", true).
                                             putBoolean("Loginned", true).apply();
+
                                     getSharedPreferences("status", Context.MODE_PRIVATE).edit().
                                             putBoolean("first_login", true).apply();
 
