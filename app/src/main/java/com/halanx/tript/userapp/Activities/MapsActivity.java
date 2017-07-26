@@ -96,6 +96,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     LatLng latLon;
 
     LatLng currLoc;
+    String ApiKey = "AIzaSyBnCtz4CuPtcZ-87zXLsYvH1BrkTTJ9eyw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,11 +175,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 suggestions.clear();
 
                 String url = "https://maps.googleapis.com//maps/api/place/autocomplete/json?input="
-                        + newText + "&components=country:in&key=AIzaSyDQOsW7KTGBZpQ1xlh_8ABkABoEr_pbeOc";
+                        + newText + "&components=country:in&key="+ ApiKey;
                 Volley.newRequestQueue(MapsActivity.this).add(new StringRequest(Request.Method.GET, url.replace(" ", "+").trim(),
                         new com.android.volley.Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
+
+                                Log.i("Response",response);
                                 JSONObject jsonObject = null;
                                 try {
                                     jsonObject = new JSONObject(response);
@@ -384,11 +387,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Log.d("TAG", "" + lon);
 
 
-                    String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&key=AIzaSyDQOsW7KTGBZpQ1xlh_8ABkABoEr_pbeOc";
+                    String url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&key="+ApiKey;
                     Volley.newRequestQueue(MapsActivity.this).add(new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
                             JSONObject revGeo = null;
+                            Log.i("Response",response);
                             try {
                                 revGeo = new JSONObject(response);
                             } catch (JSONException e) {
@@ -694,7 +698,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         String add = strAddress.replace(" ", "+");
         String url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + add + "&region=in" +
-                "&key=AIzaSyDGpGmvzDetvS5IVrvceXvpgh83f6QSSis";
+                "&key="+ApiKey;
         Volley.newRequestQueue(MapsActivity.this).add(new StringRequest(Request.Method.GET, url.trim()
                 , new Response.Listener<String>() {
             @Override

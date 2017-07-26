@@ -3,6 +3,7 @@ package com.halanx.tript.userapp.Activities;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import com.halanx.tript.userapp.POJO.CartsInfo;
 import com.halanx.tript.userapp.POJO.Resp;
 import com.halanx.tript.userapp.POJO.UserInfo;
 import com.halanx.tript.userapp.R;
+import com.halanx.tript.userapp.app.Config;
 import com.katepratik.msg91api.MSG91;
 
 import java.util.Random;
@@ -65,6 +67,7 @@ RegisterActivity extends AppCompatActivity {
     MSG91 msg91 = new MSG91("156475AdUYanwCiKI35970f67d");
     String email, password, firstName, lastName, icode;
     EditText otp;
+    String regId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,6 +101,8 @@ RegisterActivity extends AppCompatActivity {
             inputEmail.setText(getSharedPreferences("fbdata", Context.MODE_PRIVATE).getString("email",null));
             inputPassword.setVisibility(View.GONE);
         }
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+        regId = pref.getString("regId", null);
 
 
 //        already_account = (LinearLayout) findViewById(R.id.already_account);
@@ -231,17 +236,18 @@ RegisterActivity extends AppCompatActivity {
 
     public  void registration(){
 
-        Call<Resp> call = clientRegister.register(firstName, lastName, email, password, mobileNumber);
+        Call<Resp> call = clientRegister.register(firstName, lastName, email, password, mobileNumber, regId);
         call.enqueue(new Callback<Resp>() {
             @Override
             public void onResponse(Call<Resp> call, Response<Resp> response) {
                 resp = response.body();
 
                 if (!resp.getError()) {
+
 //                    Toast.makeText(RegisterActivity.this, "Registeration success", Toast.LENGTH_LONG).show();
 
                     //Put user on Django on successful registration on php
-                    UserInfo info = new UserInfo(Long.parseLong(mobileNumber), email, firstName, lastName, password);
+                    UserInfo info = new UserInfo(Long.parseLong(mobileNumber), email, firstName, lastName, password, regId);
                     Call<UserInfo> callPost = client.putUserDataOnServer(info);
                     callPost.enqueue(new Callback<UserInfo>() {
                         @Override
