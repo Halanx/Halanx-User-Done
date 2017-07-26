@@ -2,9 +2,12 @@ package com.halanx.tript.userapp.Activities;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
@@ -12,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -122,6 +126,22 @@ public class HomeActivity extends AppCompatActivity
         View view = navigationView.getHeaderView(0);
         nametv = (TextView) view.findViewById(R.id.nametv);
         userImage = (ImageView) view.findViewById(R.id.userimage);
+
+        //IF NO INTERNET
+        if(!isNetworkAvailable()){
+            new AlertDialog.Builder(this)
+                    .setTitle("No internet connection")
+                    .setMessage("You are not connected to the internet").setCancelable(false)
+                    .setPositiveButton("Close", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+
+                    })
+                    .show();
+        }
 
         if (getSharedPreferences("Login", Context.MODE_PRIVATE).getString("MobileNumber", null) != null) {
             String userInfo = getSharedPreferences("Login", Context.MODE_PRIVATE).getString("UserInfo", null);
@@ -386,7 +406,13 @@ public class HomeActivity extends AppCompatActivity
         super.onPause();
     }
 
-
+    //Check internet connection
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }
 
 /*
