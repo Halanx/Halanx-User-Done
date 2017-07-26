@@ -7,7 +7,11 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
+<<<<<<< HEAD
+        sha1="dfbdc18114901d7c2ee03f83dc23e83d7ab41cb2">
+=======
         sha1="8448b34cdd5feff230af2ff061408c309c5882ac">
+>>>>>>> 1d356b2dc71dd745e99a2a30a166541ac1f392b7
         <dex dex="/Users/Nishant/Desktop/Halanx-User-Done/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_4bd94487a4353fa89aed7f9d4f5717e63000fb3f/classes.dex" />
     </item>
     <item

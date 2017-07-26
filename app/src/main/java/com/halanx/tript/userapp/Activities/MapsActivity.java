@@ -83,16 +83,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     SearchView searchView;
     TextView confirmBtn;
     FloatingActionButton setLocation;
-    double lat, lon, latD, lonD, ulan = 0.0, ulon = 0.0;
+    double lat, lon, latD, lonD;
     int i = 0, x = 0;
     LatLng locationAfterOrder, userLocation;
     List<String> suggestions = new ArrayList<>();
     CardView cvConfirmLoc;
     SharedPreferences.Editor editor;
     String addressConfirm;
-    LatLng latLon;
-
     LatLng currLoc;
+
     String ApiKey = "AIzaSyBnCtz4CuPtcZ-87zXLsYvH1BrkTTJ9eyw";
 
     @Override
