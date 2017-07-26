@@ -22,6 +22,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -34,6 +38,9 @@ import com.halanx.tript.userapp.R;
 import com.halanx.tript.userapp.app.Config;
 import com.halanx.tript.userapp.util.NotificationUtils;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -73,9 +80,6 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
-
 
 
         barLayout = (AppBarLayout) findViewById(R.id.app_bar);
@@ -127,7 +131,6 @@ public class HomeActivity extends AppCompatActivity
             SharedPreferences sharedPreferences = getSharedPreferences("FB_DATA", Context.MODE_PRIVATE);
             String fName = sharedPreferences.getString("fbName", "halanx");
             Log.d("fname", fName);
-
             String fEmail = sharedPreferences.getString("fbEmail", "halanx");
             Log.d("femail", fEmail);
             String image = sharedPreferences.getString("fbPic", "halanx");
@@ -196,7 +199,7 @@ public class HomeActivity extends AppCompatActivity
         );
 
         sharedPreferences = getSharedPreferences("Login", Context.MODE_PRIVATE);
-        if(sharedPreferences.getBoolean("first_login",false)) {
+        if (sharedPreferences.getBoolean("first_login", false)) {
 
             ViewTarget target = new ViewTarget(R.id.imageButton_location, this);
             ShowcaseView sv = new ShowcaseView.Builder(this)
@@ -300,6 +303,25 @@ public class HomeActivity extends AppCompatActivity
     private void displayFirebaseRegId() {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         String regId = pref.getString("regId", null);
+        String url = "http://ec2-34-208-181-152.us-west-2.compute.amazonaws.com/users/" +
+                getSharedPreferences("Login", Context.MODE_PRIVATE).getString("MobileNumber", null);
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("GcmId", regId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Volley.newRequestQueue(this).add(new JsonObjectRequest(Request.Method.PATCH, url, obj, new com.android.volley.Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.i("GcmId", "Done");
+            }
+        }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }));
 
         Log.e(TAG, "Firebase reg id: " + regId);
 
@@ -323,9 +345,9 @@ public class HomeActivity extends AppCompatActivity
                          public void onResponse(Call<List<CartItem>> call, Response<List<CartItem>> response) {
 
                              items = response.body();
-                            // Log.d("items", String.valueOf(items));
+                             // Log.d("items", String.valueOf(items));
 
-                             if (items!=null&&items.size() > 0) {
+                             if (items != null && items.size() > 0) {
                                  cartitems.setVisibility(View.VISIBLE);
                                  itemcount.setText(String.valueOf(items.size()));
 
